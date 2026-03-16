@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+<script>
+  window.pixelId = "69251f2e83c0b0e4729553f9";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="js/utmify-bootstrap.js"></script>
+    <title>Comprar</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Configuracoes do Tailwind para cores e fontes -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#ee4d2d',
+                            green: '#00b96b',
+                            bg: '#f5f5f5',
+                            text: '#222',
+                            sub: '#8c8c8c'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ocultar barra de rolagem mantendo a funcionalidade */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        /* Simular o efeito de clique (ripple/opacity) */
+        .touch-feedback:active {
+            opacity: 0.7;
+            background-color: #f9fafb;
+            transition: opacity 0.1s ease, background-color 0.1s ease;
+        }
+
+        /* Animacoes Modais */
+        .modal-overlay { transition: opacity 0.3s ease; }
+        .modal-content { transition: transform 0.3s ease; }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-text font-sans pb-[90px] antialiased">
+
+    <!-- Mobile Wrapper (Centraliza no desktop, ocupa tudo no mobile) -->
+    <div class="max-w-[414px] mx-auto bg-brand-bg min-h-screen relative shadow-2xl overflow-hidden">
+
+        <!-- HEADER -->
+        <header class="h-[56px] bg-white flex items-center px-4 sticky top-0 z-30 border-b border-gray-200">
+            <button type="button" onclick="history.back()" class="w-[24px] h-[24px] flex items-center justify-center touch-feedback rounded-full">
+                <i class="ph ph-arrow-left text-[24px] text-brand-text"></i>
+            </button>
+            <h1 class="flex-1 text-center text-lg font-medium pr-[24px]">Comprar</h1>
+        </header>
+        <!-- MAIN CONTAINER -->
+        <main class="px-4 py-3 space-y-3.5">
+
+            <!-- CARD DE ENDERECO -->
+            <section class="bg-white rounded-[14px] p-4 shadow-sm touch-feedback cursor-pointer" onclick="openModal('addressModal')">
+                <!-- Linha 1 & 2: Icone + Dados -->
+                <div class="flex items-start justify-between">
+                    <div class="flex items-start gap-2.5">
+                        <!-- Icone localizacao -->
+                        <i class="ph-fill ph-map-pin text-brand-red text-[22px] mt-0.5"></i>
+                        
+                        <div class="flex flex-col">
+                            <!-- Nome e Telefone -->
+                            <div class="flex flex-wrap items-baseline gap-x-1.5">
+                                <span id="checkoutCustomerName" class="text-[16px] font-semibold text-brand-text"></span>
+                                <span id="checkoutCustomerPhone" class="text-[14px] font-normal text-brand-sub"></span>
+                            </div>
+                            <!-- Endereco -->
+                            <div class="text-[14px] text-[#666] leading-[1.4] mt-[6px]"><div id="checkoutCustomerAddressLine1"></div><div id="checkoutCustomerAddressLine2"></div></div>
+                        </div>
+                    </div>
+                    <!-- Icone seta direita -->
+                    <i class="ph ph-caret-right text-gray-300 text-sm mt-1"></i>
+                </div>
+
+                <!-- Divisor -->
+                <div class="h-[1px] bg-[#f0f0f0] my-[14px]"></div>
+
+                <!-- Linha 3: CPF -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-identification-card text-brand-red text-[20px]"></i>
+                        <span class="text-[15px] text-[#333]">CPF</span>
+                    </div>
+                    <span id="checkoutCustomerCpf" class="text-[15px] text-brand-sub text-right"></span>
+                </div>
+            </section>
+
+            <!-- CARD DA LOJA E PRODUTO -->
+            <section class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <!-- Cabecalho da Loja -->
+                <div class="flex items-center gap-2 p-3.5 border-b border-gray-100 touch-feedback cursor-pointer">
+                    <span class="bg-brand-red text-white text-[10px] px-[6px] py-[2px] rounded-[6px] font-semibold tracking-wide">
+                        Indicado
+                    </span>
+                    <h2 id="checkoutShopName" class="text-[14px] font-semibold text-brand-text"></h2>
+                    <i class="ph ph-caret-right text-brand-sub ml-auto text-sm"></i>
+                </div>
+
+                <!-- Detalhes do Produto -->
+                <div class="flex gap-3 p-3.5 touch-feedback cursor-pointer bg-gray-50/50">
+                    <img id="checkoutProductImage" src="" alt="Produto" class="w-[72px] h-[72px] rounded-md object-cover border border-gray-100 flex-shrink-0">
+                    <div class="flex-1 min-w-0 flex flex-col">
+                        <h3 id="checkoutProductTitle" class="text-[14px] leading-tight text-brand-text line-clamp-2 text-ellipsis"></h3>
+                        <p id="checkoutProductVariant" class="text-[12px] text-brand-sub mt-1"></p>
+                        
+                        <div class="flex items-center justify-between mt-auto pt-2">
+                            <div class="flex items-baseline gap-1.5">
+                                <span id="checkoutProductCurrentPrice" class="text-[16px] text-brand-red font-semibold"></span>
+                                <span id="checkoutProductOldPrice" class="text-[11px] text-brand-sub line-through"></span>
+                            </div>
+                            <span id="checkoutProductQty" class="text-[13px] text-brand-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cupom da Loja -->
+                <div class="flex items-center justify-between p-3.5 border-t border-gray-100 touch-feedback cursor-pointer">
+                    <span class="text-[14px] text-brand-text">Cupom da loja</span>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[14px] text-brand-red font-medium">-R$0,50</span>
+                        <i class="ph ph-caret-right text-brand-sub text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Mensagem para o vendedor -->
+                <div class="flex items-center justify-between p-3.5 border-t border-gray-100 touch-feedback cursor-pointer">
+                    <span class="text-[14px] text-brand-text">Mensagem para o vendedor:</span>
+                    <div class="flex items-center gap-1.5 text-brand-sub">
+                        <span class="text-[14px]">Digite aqui</span>
+                        <i class="ph ph-caret-right text-sm"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD UPSELLS -->
+            <section class="bg-white rounded-[12px] shadow-sm overflow-hidden p-3.5">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-[14px] font-medium text-brand-text">Ofertas especiais</h3>
+                    <span class="text-[12px] text-brand-red font-medium">Adicione ao pedido</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div data-upsell-card="upsell_baterias" class="border border-gray-200 rounded-[12px] p-3 flex gap-3 items-start">
+                        <img src="img/order dois.webp" alt="Kit 3 Hip Mini Band " class="w-[72px] h-[72px] rounded-lg object-cover border border-gray-100 flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <div class="text-[14px] font-medium text-brand-text leading-tight">Kit 3 Hip Mini Band </div>
+                                    <div class="text-[12px] text-brand-sub mt-1">podem ser usados para trabalhar vários grupos musculares</div>
+                                </div>
+                                <span class="text-[10px] bg-[#fff1ee] text-brand-red px-2 py-1 rounded-full font-medium whitespace-nowrap">Upsell 1</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-3 gap-3">
+                                <span data-upsell-price="upsell_baterias" class="text-[16px] text-brand-red font-semibold"></span>
+                                <button type="button" data-upsell-button="upsell_baterias" onclick="toggleUpsell('upsell_baterias')" class="min-w-[108px] h-[34px] rounded-[8px] bg-brand-red text-white text-[13px] font-medium touch-feedback">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div data-upsell-card="upsell_reservatorios" class="border border-gray-200 rounded-[12px] p-3 flex gap-3 items-start">
+                        <img src="img/order um.webp" alt="Kit 11 Elastico Extensor" class="w-[72px] h-[72px] rounded-lg object-cover border border-gray-100 flex-shrink-0">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-2">
+                                <div>
+                                    <div class="text-[14px] font-medium text-brand-text leading-tight">Kit 11 Elastico Extensor</div>
+                                    <div class="text-[12px] text-brand-sub mt-1">Para um treino Funcional Academia Em Casa</div>
+                                </div>
+                                <span class="text-[10px] bg-[#fff1ee] text-brand-red px-2 py-1 rounded-full font-medium whitespace-nowrap">Upsell 2</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-3 gap-3">
+                                <span data-upsell-price="upsell_reservatorios" class="text-[16px] text-brand-red font-semibold"></span>
+                                <button type="button" data-upsell-button="upsell_reservatorios" onclick="toggleUpsell('upsell_reservatorios')" class="min-w-[108px] h-[34px] rounded-[8px] bg-brand-red text-white text-[13px] font-medium touch-feedback">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD OPCAO DE ENVIO & TOTAL DE ITENS -->
+            <section class="bg-white rounded-[12px] shadow-sm overflow-hidden p-3.5 flex flex-col gap-3">
+                <div class="flex items-center justify-between touch-feedback cursor-pointer" onclick="openModal('shippingModal')">
+                    <h3 class="text-[14px] font-medium text-brand-text">Opcao de Envio</h3>
+                    <div class="flex items-center gap-1.5 text-brand-sub">
+                        <span class="text-[13px]">Ver Mais</span>
+                        <i class="ph ph-caret-right text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Sub-card Selecionado -->
+                <div class="border border-brand-green rounded-[10px] p-3 flex items-center justify-between bg-green-50/30 touch-feedback cursor-pointer" onclick="openModal('shippingModal')">
+                    <div class="flex gap-2.5 items-start">
+                        <i class="ph-fill ph-check-circle text-brand-green text-[18px] mt-0.5"></i>
+                        <div class="flex flex-col">
+                            <span class="text-[14px] font-medium text-brand-text" id="selectedShippingName">Entrega Padrao</span>
+                            <span class="text-[12px] text-brand-sub mt-0.5" id="selectedShippingDate">Receba entre 9 e 13 de mar</span>
+                        </div>
+                    </div>
+                    <span class="text-[14px] font-medium text-brand-green" id="selectedShippingPrice">Gratis</span>
+                </div>
+
+                <!-- Total de Itens -->
+                <div class="flex items-center justify-between pt-3 mt-1 border-t border-gray-100">
+                    <span id="checkoutItemsLabel" class="text-[14px] text-brand-text"></span>
+                    <span id="checkoutItemsTotal" class="text-[15px] font-semibold text-brand-red"></span>
+                </div>
+            </section>
+
+            <!-- CARD CUPONS E MOEDAS -->
+            <section class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <!-- Cupom Shopee -->
+                <div class="flex items-center justify-between p-3.5 border-b border-gray-100 touch-feedback cursor-pointer" onclick="openModal('couponModal')">
+                    <div class="flex items-center gap-2">
+                        <i class="ph ph-ticket text-brand-red text-[20px]"></i>
+                        <span class="text-[14px] text-brand-text">Cupom Shopee</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-brand-sub">
+                        <span class="text-[13px] truncate max-w-[150px]">Selecione ou insira o codigo</span>
+                        <i class="ph ph-caret-right text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Moedas -->
+                <div class="flex items-center justify-between p-3.5 touch-feedback cursor-pointer opacity-60">
+                    <div class="flex items-center gap-2">
+                        <img src="img/moeda.svg" alt="Moeda" class="w-5 h-5">
+                        <span class="text-[14px] text-brand-sub">Sem moedas para aplicar</span>
+                        <i class="ph ph-question text-brand-sub text-[16px]"></i>
+                    </div>
+                    <div class="w-10 h-5 bg-gray-200 rounded-full flex items-center px-0.5">
+                        <div class="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD METODOS DE PAGAMENTO -->
+            <section class="bg-white rounded-[12px] shadow-sm overflow-hidden p-3.5">
+                <div class="flex items-center justify-between touch-feedback cursor-pointer mb-3">
+                    <h3 class="text-[14px] font-medium text-brand-text">Metodos de pagamento</h3>
+                    <div class="flex items-center gap-1.5 text-brand-sub">
+                        <span class="text-[13px]">Ver Mais</span>
+                        <i class="ph ph-caret-right text-sm"></i>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between touch-feedback cursor-pointer">
+                    <div class="flex items-center gap-2">
+                        <!-- Icone Pix customizado -->
+                        <div class="w-6 h-6 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-6 h-6" viewBox="0 0 48 48">
+                                <path fill="#4db6ac" d="M11.9,12h-0.68l8.04-8.04c2.62-2.61,6.86-2.61,9.48,0L36.78,12H36.1c-1.6,0-3.11,0.62-4.24,1.76	l-6.8,6.77c-0.59,0.59-1.53,0.59-2.12,0l-6.8-6.77C15.01,12.62,13.5,12,11.9,12z"></path><path fill="#4db6ac" d="M36.1,36h0.68l-8.04,8.04c-2.62,2.61-6.86,2.61-9.48,0L11.22,36h0.68c1.6,0,3.11-0.62,4.24-1.76	l6.8-6.77c0.59-0.59,1.53-0.59,2.12,0l6.8,6.77C32.99,35.38,34.5,36,36.1,36z"></path><path fill="#4db6ac" d="M44.04,28.74L38.78,34H36.1c-1.07,0-2.07-0.42-2.83-1.17l-6.8-6.78c-1.36-1.36-3.58-1.36-4.94,0	l-6.8,6.78C13.97,33.58,12.97,34,11.9,34H9.22l-5.26-5.26c-2.61-2.62-2.61-6.86,0-9.48L9.22,14h2.68c1.07,0,2.07,0.42,2.83,1.17	l6.8,6.78c0.68,0.68,1.58,1.02,2.47,1.02s1.79-0.34,2.47-1.02l6.8-6.78C34.03,14.42,35.03,14,36.1,14h2.68l5.26,5.26	C46.65,21.88,46.65,26.12,44.04,28.74z"></path>
+                            </svg>
+                        </div>
+                        <span class="text-[14px] text-brand-text">Pix</span>
+                    </div>
+                    <!-- Custom Radio Button -->
+                    <div class="w-5 h-5 rounded-full border-[5px] border-brand-red flex items-center justify-center">
+                        <div class="w-2.5 h-2.5 bg-brand-red rounded-full"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Espaco extra para scroll seguro -->
+            <div class="h-4"></div>
+        </main>
+
+        <!-- BARRA FIXA INFERIOR -->
+        <footer class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[414px] h-[72px] bg-white border-t border-gray-200 z-40 flex items-center justify-between px-4">
+            <div class="flex flex-col justify-center">
+                <div class="flex items-end gap-1.5">
+                    <span class="text-[13px] text-brand-text pb-[1px]">Total</span>
+                    <span id="checkoutFooterTotal" class="text-[18px] font-semibold text-brand-red leading-none"></span>
+                </div>
+                <div id="checkoutSavings" class="text-[11px] text-brand-red mt-1"></div>
+            </div>
+            
+            <button onclick="fazerPedido()" class="bg-brand-red touch-feedback text-white font-medium text-[15px] h-[44px] px-6 rounded-[8px] shadow-sm flex items-center justify-center min-w-[140px]">
+                Fazer Pedido
+            </button>
+        </footer>
+
+        <!-- MODAIS -->
+        
+        <!-- Modal Endereco -->
+        <div id="addressModal" class="fixed inset-0 z-50 hidden modal-overlay opacity-0 flex items-end sm:items-center justify-center">
+            <div class="absolute inset-0 bg-black/50" onclick="closeModal('addressModal')"></div>
+            <div class="relative w-full sm:w-[414px] bg-white rounded-t-[16px] sm:rounded-2xl p-5 modal-content translate-y-full pb-8 sm:pb-5 max-h-[90vh] overflow-y-auto">
+                <div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+                <h3 class="text-lg font-semibold mb-4 text-brand-text">Editar Endereco</h3>
+                <div class="space-y-3">
+                    <input id="inputCustomerName" type="text" placeholder="Nome Completo" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    
+                    <div class="flex gap-2">
+                        <input id="inputCustomerPhone" type="tel" placeholder="Telefone" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                        <input id="inputCustomerCpf" type="text" placeholder="CPF" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    </div>
+
+                    <div class="h-[1px] bg-gray-100 my-1"></div>
+
+                    <!-- Campos de Endereco -->
+                    <input type="text" id="inputCep" placeholder="CEP" maxlength="9" oninput="maskCep(this); buscarCep(this.value)" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    
+                    <input type="text" id="inputEndereco" placeholder="Endereco (Rua, Av...)" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    
+                    <div class="flex gap-2">
+                        <input type="text" id="inputNumero" placeholder="Numero" class="w-[100px] p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                        <input type="text" id="inputComplemento" placeholder="Complemento" class="flex-1 p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    </div>
+                    
+                    <input type="text" id="inputBairro" placeholder="Bairro" class="w-full p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                    
+                    <div class="flex gap-2">
+                        <input type="text" id="inputCidade" placeholder="Cidade" class="flex-1 p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px]">
+                        <input type="text" id="inputUf" placeholder="UF" maxlength="2" class="w-[80px] p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red transition-colors text-[14px] uppercase">
+                    </div>
+
+                    <button type="button" onclick="saveCustomerData()" class="w-full bg-brand-red text-white font-medium py-3 rounded-lg mt-2 touch-feedback">Salvar Alteracoes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Opcoes de Envio -->
+        <div id="shippingModal" class="fixed inset-0 z-50 hidden modal-overlay opacity-0 flex items-end sm:items-center justify-center">
+            <div class="absolute inset-0 bg-black/50" onclick="closeModal('shippingModal')"></div>
+            <div class="relative w-full sm:w-[414px] bg-white rounded-t-[16px] sm:rounded-2xl p-5 modal-content translate-y-full pb-8 sm:pb-5">
+                <div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+                <h3 class="text-lg font-semibold mb-4 text-brand-text">Opcoes de Envio</h3>
+                <div class="space-y-3">
+                                        <div data-shipping-card="Entrega Padrao" class="border border-brand-green rounded-[10px] p-4 flex items-center justify-between bg-green-50/30 touch-feedback cursor-pointer" onclick="selectShipping('Entrega Padrao', 'Receba entre 9 e 13 de mar', 'Gratis', true)">
+                        <div class="flex gap-2.5 items-start">
+                            <i data-shipping-check="Entrega Padrao" class="ph-fill ph-check-circle text-brand-green text-[18px] mt-0.5 hidden check-icon" style="display: block;"></i>
+                            <div class="flex flex-col">
+                                <span class="text-[15px] font-medium text-brand-text">Entrega Padrao</span>
+                                <span class="text-[13px] text-brand-sub mt-0.5">Receba entre 9 e 13 de mar</span>
+                            </div>
+                        </div>
+                        <span data-shipping-card-price="Entrega Padrao" class="text-[15px] font-medium text-brand-green">Gratis</span>
+                    </div>
+                    
+                    <div data-shipping-card="Entrega Rapida" class="border border-gray-200 rounded-[10px] p-4 flex items-center justify-between touch-feedback cursor-pointer" onclick="selectShipping('Entrega Rapida', 'Receba entre 5 e 7 de mar', 'R$ 16,91', false)">
+                        <div class="flex gap-2.5 items-start">
+                            <i data-shipping-check="Entrega Rapida" class="ph-fill ph-check-circle text-brand-green text-[18px] mt-0.5 hidden check-icon"></i>
+                            <div class="flex flex-col">
+                                <span class="text-[15px] font-medium text-brand-text">Entrega Rapida</span>
+                                <span class="text-[13px] text-brand-sub mt-0.5">Receba entre 5 e 7 de mar</span>
+                            </div>
+                        </div>
+                        <span data-shipping-card-price="Entrega Rapida" class="text-[15px] font-medium text-brand-text">R$ 16,91</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Cupom Shopee -->
+        <div id="couponModal" class="fixed inset-0 z-50 hidden modal-overlay opacity-0 flex items-end sm:items-center justify-center">
+            <div class="absolute inset-0 bg-black/50" onclick="closeModal('couponModal')"></div>
+            <div class="relative w-full sm:w-[414px] bg-white rounded-t-[16px] sm:rounded-2xl p-5 modal-content translate-y-full pb-8 sm:pb-5">
+                <div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+                <h3 class="text-lg font-semibold mb-4 text-brand-text">Inserir Cupom Shopee</h3>
+                <div class="flex gap-2 mt-2">
+                    <input type="text" placeholder="Codigo do cupom" class="flex-1 p-3 border border-gray-200 rounded-lg outline-none focus:border-brand-red uppercase text-[14px]">
+                    <button onclick="closeModal('couponModal')" class="bg-gray-100 text-gray-500 font-medium px-6 rounded-lg touch-feedback text-[14px]">Aplicar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Modal -->
+        <div id="loadingModal" class="fixed inset-0 z-50 hidden modal-overlay opacity-0 flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="relative bg-white p-6 rounded-2xl flex flex-col items-center justify-center space-y-4 modal-content scale-95 transition-transform duration-300 shadow-xl w-[80%] max-w-[300px]">
+                <div class="w-10 h-10 border-4 border-gray-100 border-t-brand-red rounded-full animate-spin"></div>
+                <span class="text-[15px] font-medium text-brand-text">Processando pedido...</span>
+            </div>
+        </div>
+
+        <!-- Pix Modal -->
+        <div id="pixModal" class="fixed inset-0 z-50 hidden modal-overlay opacity-0 flex items-end sm:items-center justify-center">
+            <div class="absolute inset-0 bg-black/50" onclick="closeModal('pixModal')"></div>
+            <div class="relative w-full sm:w-[414px] bg-white rounded-t-[16px] sm:rounded-2xl p-6 modal-content translate-y-full pb-8 sm:pb-6 flex flex-col items-center">
+                <div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
+                <h3 class="text-xl font-semibold mb-2 text-brand-text">Pague com Pix</h3>
+                <p class="text-[14px] text-brand-sub text-center mb-6 leading-relaxed">Escaneie o QR Code ou copie o codigo abaixo para finalizar o pagamento no seu banco.</p>
+                
+                <img id="pixQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX" alt="QR Code Pix" class="w-[200px] h-[200px] mb-4 border border-gray-200 p-2 rounded-xl shadow-sm">
+                <p id="pixStatusText" class="text-[13px] text-brand-sub text-center mb-2">Aguardando geracao do Pix...</p>
+                <p id="pixTransactionId" class="text-[11px] text-gray-400 mb-4 text-center"></p>
+                
+                <div class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 mb-5 flex items-center justify-between gap-2 overflow-hidden">
+                    <span class="text-[13px] text-gray-500 font-mono truncate" id="pixCode">00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3...</span>
+                </div>
+                
+                <button onclick="copyPix()" class="w-full bg-brand-green text-white font-semibold py-3.5 rounded-xl touch-feedback flex items-center justify-center gap-2 shadow-sm">
+                    <i class="ph ph-copy text-xl"></i>
+                    <span id="copyBtnText">Copiar codigo Pix</span>
+                </button>
+                <button onclick="closeModal('pixModal')" class="w-full text-brand-sub font-medium py-3 mt-3 touch-feedback rounded-xl">Fechar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts para controle dos modais -->
+    <script>
+        const CHECKOUT_SNAPSHOT_KEY = "clone_mobile_checkout_snapshot";
+        const CHECKOUT_CUSTOMER_KEY = "clone_mobile_checkout_customer";
+        const CHECKOUT_SHIPPING_KEY = "clone_mobile_checkout_shipping";
+        const CHECKOUT_UPSELLS_KEY = "clone_mobile_checkout_upsells";
+        const CART_KEY = "clone_mobile_cart";
+        const PIX_TRANSACTION_KEY = "clone_mobile_pix_transaction";
+        const PIX_CREATE_ENDPOINT = "api/pix.php";
+        const PIX_CHECK_ENDPOINT = "api/pix-check-payment.php";
+        const UTMIFY_TRACKING_KEY = "clone_mobile_utm_tracking";
+        const UTMIFY_SYNC_ENDPOINT = "api/utmify-order.php";
+        const UTMIFY_SYNC_PREFIX = "clone_mobile_utmify_sync_";
+        const PIX_POLL_INTERVAL_MS = 5000;
+        const PIX_PAID_STATUSES = new Set([
+            "paid", "approved", "confirmed", "success",
+            "succeeded", "paid_out", "completed", "settled"
+        ]);
+
+        let currentPixCode = "";
+        let currentPixTransactionId = "";
+        let pixPollTimer = null;
+        let isCreatingPix = false;
+        const utmifySyncRequests = Object.create(null);
+        const DEFAULT_SHIPPING_OPTION = {
+            name: "Entrega Padrao",
+            date: "Receba entre 9 e 13 de mar",
+            price: "Gratis",
+            isStandard: true
+        };
+        const UPSELL_OPTIONS = {
+            upsell_baterias: {
+                id: "upsell_baterias",
+                title: "Kit 3 Hip Mini Band ",
+                image: "img/up1.jpg",
+                price: 19.90
+            },
+            upsell_reservatorios: {
+                id: "upsell_reservatorios",
+                title: "Kit 11 Elastico Extensor",
+                image: "img/up2.jpg",
+                price: 24.90
+            }
+        };
+
+        function safeParse(value, fallback) {
+            try {
+                return JSON.parse(value);
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        function toCurrencyNumber(value) {
+            let raw = String(value || "").trim();
+            if (!raw) return 0;
+            raw = raw.replace(/[^\d,.\-]/g, "");
+            if (raw.includes(",") && raw.includes(".")) {
+                raw = raw.replace(/\./g, "").replace(",", ".");
+            } else if (raw.includes(",")) {
+                raw = raw.replace(",", ".");
+            }
+            const numeric = Number(raw);
+            return Number.isNaN(numeric) ? 0 : numeric;
+        }
+
+        function formatBRL(value) {
+            let numeric = Number(value);
+            if (Number.isNaN(numeric)) numeric = 0;
+            return "R$" + numeric.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function onlyDigits(value) {
+            return String(value || "").replace(/\D/g, "");
+        }
+
+        function normalizeShippingOption(source) {
+            const option = source && typeof source === "object" ? source : {};
+            return {
+                name: String(option.name || DEFAULT_SHIPPING_OPTION.name),
+                date: String(option.date || DEFAULT_SHIPPING_OPTION.date),
+                price: String(option.price || DEFAULT_SHIPPING_OPTION.price),
+                isStandard: option.isStandard !== false
+            };
+        }
+
+        function getShippingAmount(option) {
+            const normalized = normalizeShippingOption(option);
+            let priceText = String(normalized.price || "").trim().toLowerCase();
+            if (typeof priceText.normalize === "function") {
+                priceText = priceText.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            if (!priceText || priceText === "gratis" || priceText === "free") {
+                return 0;
+            }
+            return toCurrencyNumber(normalized.price);
+        }
+
+        function readShippingOption() {
+            return normalizeShippingOption(safeParse(localStorage.getItem(CHECKOUT_SHIPPING_KEY) || "null", null) || DEFAULT_SHIPPING_OPTION);
+        }
+
+        function writeShippingOption(option) {
+            const normalized = normalizeShippingOption(option);
+            localStorage.setItem(CHECKOUT_SHIPPING_KEY, JSON.stringify(normalized));
+            return normalized;
+        }
+
+        function readUpsellSelections() {
+            const stored = safeParse(localStorage.getItem(CHECKOUT_UPSELLS_KEY) || "[]", []);
+            if (!Array.isArray(stored)) return [];
+            return stored.filter((id) => Object.prototype.hasOwnProperty.call(UPSELL_OPTIONS, id));
+        }
+
+        function writeUpsellSelections(selection) {
+            const normalized = Array.isArray(selection)
+                ? selection.filter((id) => Object.prototype.hasOwnProperty.call(UPSELL_OPTIONS, id))
+                : [];
+            localStorage.setItem(CHECKOUT_UPSELLS_KEY, JSON.stringify(normalized));
+            return normalized;
+        }
+
+        function getSelectedUpsells() {
+            return readUpsellSelections().map((id) => UPSELL_OPTIONS[id]).filter(Boolean);
+        }
+
+        function getUpsellTotal() {
+            return getSelectedUpsells().reduce((sum, item) => sum + Number(item.price || 0), 0);
+        }
+
+        function renderUpsellCards() {
+            const selectedIds = readUpsellSelections();
+
+            Object.keys(UPSELL_OPTIONS).forEach((id) => {
+                const option = UPSELL_OPTIONS[id];
+                const selected = selectedIds.includes(id);
+                const card = document.querySelector('[data-upsell-card="' + id + '"]');
+                const button = document.querySelector('[data-upsell-button="' + id + '"]');
+                const priceEl = document.querySelector('[data-upsell-price="' + id + '"]');
+
+                if (priceEl) {
+                    priceEl.textContent = formatBRL(option.price);
+                }
+
+                if (card) {
+                    card.className = selected
+                        ? "border border-brand-red rounded-[12px] p-3 flex gap-3 items-start bg-[#fff7f5]"
+                        : "border border-gray-200 rounded-[12px] p-3 flex gap-3 items-start";
+                }
+
+                if (button) {
+                    button.textContent = selected ? "Adicionado" : "Adicionar";
+                    button.className = selected
+                        ? "min-w-[108px] h-[34px] rounded-[8px] bg-[#fff1ee] text-brand-red text-[13px] font-medium touch-feedback border border-[#ffc9bc]"
+                        : "min-w-[108px] h-[34px] rounded-[8px] bg-brand-red text-white text-[13px] font-medium touch-feedback";
+                }
+            });
+        }
+
+        function toggleUpsell(id) {
+            if (!Object.prototype.hasOwnProperty.call(UPSELL_OPTIONS, id)) return;
+            const current = readUpsellSelections();
+            const next = current.includes(id)
+                ? current.filter((itemId) => itemId !== id)
+                : current.concat(id);
+
+            writeUpsellSelections(next);
+            renderUpsellCards();
+
+            const snapshot = readCheckoutSnapshot();
+            if (snapshot) {
+                renderCheckoutData(snapshot);
+            }
+        }
+
+        function renderShippingSelection(option) {
+            const normalized = normalizeShippingOption(option);
+            const selectedNameEl = document.getElementById("selectedShippingName");
+            const selectedDateEl = document.getElementById("selectedShippingDate");
+            const selectedPriceEl = document.getElementById("selectedShippingPrice");
+
+            if (selectedNameEl) selectedNameEl.innerText = normalized.name;
+            if (selectedDateEl) selectedDateEl.innerText = normalized.date;
+            if (selectedPriceEl) {
+                selectedPriceEl.innerText = normalized.price;
+                selectedPriceEl.className = normalized.isStandard
+                    ? "text-[14px] font-medium text-brand-green"
+                    : "text-[14px] font-medium text-brand-text";
+            }
+
+            document.querySelectorAll("[data-shipping-card]").forEach((card) => {
+                const isActive = card.getAttribute("data-shipping-card") === normalized.name;
+                card.className = isActive
+                    ? "border border-brand-green rounded-[10px] p-4 flex items-center justify-between bg-green-50/30 touch-feedback cursor-pointer"
+                    : "border border-gray-200 rounded-[10px] p-4 flex items-center justify-between touch-feedback cursor-pointer";
+            });
+
+            document.querySelectorAll("[data-shipping-check]").forEach((icon) => {
+                icon.style.display = icon.getAttribute("data-shipping-check") === normalized.name ? "block" : "none";
+            });
+
+            document.querySelectorAll("[data-shipping-card-price]").forEach((priceNode) => {
+                priceNode.className = priceNode.getAttribute("data-shipping-card-price") === normalized.name && normalized.isStandard
+                    ? "text-[15px] font-medium text-brand-green"
+                    : "text-[15px] font-medium text-brand-text";
+            });
+        }
+
+        function parseJsonLoosely(rawText) {
+            if (typeof rawText !== "string") return null;
+            let source = rawText.trim();
+            if (!source) return null;
+            source = source.replace(/^\uFEFF/, "");
+
+            try {
+                return JSON.parse(source);
+            } catch (error) {}
+
+            const firstBrace = source.indexOf("{");
+            const lastBrace = source.lastIndexOf("}");
+            if (firstBrace >= 0 && lastBrace > firstBrace) {
+                const candidate = source.slice(firstBrace, lastBrace + 1);
+                try {
+                    return JSON.parse(candidate);
+                } catch (error) {}
+            }
+            return null;
+        }
+
+        function normalizePixCreateResult(parsed) {
+            if (!parsed || typeof parsed !== "object") return null;
+
+            const dataNode = parsed.data && typeof parsed.data === "object" ? parsed.data : null;
+            const source = dataNode || parsed;
+            const pixNode = source.pix && typeof source.pix === "object" ? source.pix : null;
+
+            const pixCode = String(
+                source.pixCopiaECola ||
+                source.brcode ||
+                source.qr_code ||
+                source.qrcode ||
+                (pixNode && (pixNode.qr_code || pixNode.qrcode || pixNode.code)) ||
+                ""
+            ).trim();
+
+            const transactionId = String(
+                source.transactionId ||
+                source.id ||
+                (dataNode && (dataNode.transactionId || dataNode.id)) ||
+                ""
+            ).trim();
+
+            const status = String(source.status || parsed.status || "").trim();
+            const success = parsed.success;
+            const errorMessage = parsed.error || parsed.message || source.error || source.message || "";
+
+            return {
+                success: success,
+                error: errorMessage,
+                message: errorMessage,
+                status: status,
+                pixCopiaECola: pixCode,
+                brcode: pixCode || String(source.brcode || "").trim(),
+                transactionId: transactionId,
+                id: transactionId || String(source.id || "").trim(),
+                expiresAt: source.expiresAt || source.expiration_date || source.expires_at || parsed.expiresAt || null,
+                utmifyPendingSynced: source.utmifyPendingSynced === true || parsed.utmifyPendingSynced === true,
+                utmifyPendingError: source.utmifyPendingError || parsed.utmifyPendingError || ""
+            };
+        }
+
+        function getCheckoutTotalCents(snapshot) {
+            if (!snapshot) return 0;
+            const product = snapshot.product || {};
+            const totals = snapshot.totals || {};
+            const quantity = Number(product.quantity) || 1;
+            const fromTotals = Number(totals.total);
+            const fallback = toCurrencyNumber(product.currentPrice) * quantity;
+            const shippingAmount = getShippingAmount(readShippingOption());
+            const upsellAmount = getUpsellTotal();
+            const value = (Number.isFinite(fromTotals) && fromTotals > 0 ? fromTotals : fallback) + shippingAmount + upsellAmount;
+            return Math.round(value * 100);
+        }
+
+        function fireInitiateCheckoutEvent(snapshot) {
+            if (!snapshot) return;
+
+            const product = snapshot.product || {};
+            const quantity = Math.max(1, Number(product.quantity) || 1);
+            const value = Number((getCheckoutTotalCents(snapshot) / 100).toFixed(2));
+            const itemId = String(product.itemId || product.id || "").trim();
+            const itemName = String(product.title || "Produto").trim() || "Produto";
+            const signature = [itemId, itemName, String(quantity), String(value)].join("|");
+            const storageKeyGeneral = "clone_mobile_initiate_checkout_signature";
+            const storageKeyMeta = "clone_mobile_initiate_checkout_meta_signature";
+            const retryStateKey = "__cmInitiateCheckoutMetaRetryState";
+
+            let generalAlreadySent = false;
+            let metaAlreadySent = false;
+            try {
+                generalAlreadySent = sessionStorage.getItem(storageKeyGeneral) === signature;
+                metaAlreadySent = sessionStorage.getItem(storageKeyMeta) === signature;
+            } catch (error) {}
+
+            const fbqPayload = {
+                currency: "BRL",
+                value: value,
+                content_type: "product",
+                content_name: itemName,
+                num_items: quantity
+            };
+            if (itemId) {
+                fbqPayload.content_ids = [itemId];
+            }
+
+            const sendMetaEvent = () => {
+                if (typeof window.fbq !== "function") return false;
+                try {
+                    window.fbq("track", "InitiateCheckout", fbqPayload);
+                    sessionStorage.setItem(storageKeyMeta, signature);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            };
+
+            if (!metaAlreadySent && sendMetaEvent()) {
+                metaAlreadySent = true;
+            }
+
+            const itemPrice = quantity > 0 ? Number((value / quantity).toFixed(2)) : value;
+            const gtagItem = {
+                item_name: itemName,
+                quantity: quantity,
+                price: itemPrice
+            };
+            if (itemId) {
+                gtagItem.item_id = itemId;
+            }
+
+            let generalTracked = false;
+
+            if (!generalAlreadySent && typeof window.gtag === "function") {
+                window.gtag("event", "begin_checkout", {
+                    currency: "BRL",
+                    value: value,
+                    items: [gtagItem]
+                });
+                generalTracked = true;
+            }
+
+            if (!Array.isArray(window.dataLayer)) {
+                window.dataLayer = [];
+            }
+
+            if (!generalAlreadySent) {
+                window.dataLayer.push({
+                    event: "initiate_checkout",
+                    ecommerce: {
+                        currency: "BRL",
+                        value: value,
+                        items: [gtagItem]
+                    }
+                });
+                generalTracked = true;
+            }
+
+            if (generalTracked) {
+                try {
+                    sessionStorage.setItem(storageKeyGeneral, signature);
+                } catch (error) {}
+            }
+
+            if (!metaAlreadySent) {
+                const previousState = window[retryStateKey];
+                if (previousState && previousState.timer) {
+                    clearInterval(previousState.timer);
+                }
+
+                let attempts = 0;
+                const timer = setInterval(() => {
+                    attempts += 1;
+                    const sent = sendMetaEvent();
+                    if (sent || attempts >= 40) {
+                        clearInterval(timer);
+                        if (window[retryStateKey] && window[retryStateKey].timer === timer) {
+                            window[retryStateKey] = null;
+                        }
+                    }
+                }, 500);
+
+                window[retryStateKey] = { signature, timer };
+            }
+        }
+
+        function sanitizeTrackingParameters(source) {
+            const fields = ["src", "sck", "utm_source", "utm_campaign", "utm_medium", "utm_content", "utm_term"];
+            const result = {};
+
+            if (!source || typeof source !== "object") return result;
+
+            fields.forEach((field) => {
+                const value = typeof source[field] === "string" ? source[field].trim() : "";
+                if (value) result[field] = value;
+            });
+
+            return result;
+        }
+
+        function readTrackingParameters() {
+            if (window.CM_UTMIFY && typeof window.CM_UTMIFY.readTracking === "function") {
+                return sanitizeTrackingParameters(window.CM_UTMIFY.readTracking());
+            }
+
+            const stored = safeParse(localStorage.getItem(UTMIFY_TRACKING_KEY) || "{}", {});
+            return sanitizeTrackingParameters(stored);
+        }
+
+        function getUtmifySyncStorageKey(status, transactionId) {
+            return UTMIFY_SYNC_PREFIX + String(status || "pending") + "_" + String(transactionId || "");
+        }
+
+        function hasUtmifySync(status, transactionId) {
+            try {
+                return localStorage.getItem(getUtmifySyncStorageKey(status, transactionId)) === "1";
+            } catch (error) {
+                return false;
+            }
+        }
+
+        function markUtmifySync(status, transactionId) {
+            try {
+                localStorage.setItem(getUtmifySyncStorageKey(status, transactionId), "1");
+            } catch (error) {}
+        }
+
+        async function syncOrderWithUtmify(status, transactionId) {
+            const normalizedStatus = String(status || "pending").toLowerCase();
+            const orderId = String(transactionId || currentPixTransactionId || "").trim();
+            const syncKey = normalizedStatus + ":" + orderId;
+
+            if (!orderId) return null;
+            if (hasUtmifySync(normalizedStatus, orderId)) {
+                return { success: true, deduped: true };
+            }
+            if (utmifySyncRequests[syncKey]) {
+                return utmifySyncRequests[syncKey];
+            }
+
+            utmifySyncRequests[syncKey] = (async () => {
+                const snapshot = readCheckoutSnapshot();
+                if (!snapshot) {
+                    throw new Error("Snapshot do checkout indisponivel.");
+                }
+
+                const customer = readCustomerData();
+                const product = snapshot.product || {};
+                const amountCents = getCheckoutTotalCents(snapshot);
+                const payload = {
+                    orderId: orderId,
+                    status: normalizedStatus,
+                    paymentMethod: "pix",
+                    amountCents: amountCents,
+                    createdAt: snapshot.createdAt || Date.now(),
+                    approvedDate: normalizedStatus === "paid" ? Date.now() : null,
+                    customer: {
+                        name: String(customer.name || "Cliente"),
+                        phone: String(customer.phone || ""),
+                        document: String(customer.cpf || ""),
+                        email: String(customer.email || "")
+                    },
+                    product: {
+                        id: String(product.itemId || orderId),
+                        name: String(product.title || "Produto"),
+                        quantity: Number(product.quantity) || 1
+                    },
+                    trackingParameters: readTrackingParameters()
+                };
+
+                const response = await fetch(UTMIFY_SYNC_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const rawText = await response.text();
+                const result = parseJsonLoosely(rawText);
+
+                if (!response.ok) {
+                    throw new Error((result && (result.error || result.message)) || "Falha ao sincronizar pedido na UTMify.");
+                }
+                if (!result || result.success !== true) {
+                    throw new Error((result && (result.error || result.message)) || "Resposta invalida da UTMify.");
+                }
+
+                markUtmifySync(normalizedStatus, orderId);
+                return result;
+            })();
+
+            try {
+                return await utmifySyncRequests[syncKey];
+            } finally {
+                delete utmifySyncRequests[syncKey];
+            }
+        }
+
+        function setPixStatusMessage(message, variant) {
+            const statusEl = document.getElementById("pixStatusText");
+            if (!statusEl) return;
+            statusEl.textContent = message;
+            statusEl.className = "text-[13px] text-center mb-2 " + (
+                variant === "success" ? "text-brand-green" : "text-brand-sub"
+            );
+        }
+
+        function renderPixData(payload) {
+            const pixCode = String(
+                (payload && (payload.pixCopiaECola || payload.brcode || payload.qr_code || payload.qrcode)) || ""
+            ).trim();
+            const transactionId = String(
+                (payload && (payload.transactionId || payload.id)) || ""
+            ).trim();
+
+            if (!pixCode) {
+                throw new Error("A API Pix nao retornou o codigo de pagamento.");
+            }
+
+            currentPixCode = pixCode;
+            currentPixTransactionId = transactionId;
+
+            const pixCodeEl = document.getElementById("pixCode");
+            const qrImageEl = document.getElementById("pixQrImage");
+            const txIdEl = document.getElementById("pixTransactionId");
+            const copyBtnText = document.getElementById("copyBtnText");
+
+            if (pixCodeEl) pixCodeEl.textContent = pixCode;
+            if (qrImageEl) {
+                qrImageEl.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(pixCode);
+            }
+            if (txIdEl) {
+                txIdEl.textContent = transactionId ? ("ID da transacao: " + transactionId) : "";
+            }
+            if (copyBtnText) {
+                copyBtnText.textContent = "Copiar codigo Pix";
+            }
+            setPixStatusMessage("Pix gerado. Aguardando pagamento...", "pending");
+        }
+
+        function stopPixPolling() {
+            if (pixPollTimer) {
+                clearInterval(pixPollTimer);
+                pixPollTimer = null;
+            }
+        }
+
+        function isPaidPixStatus(payload) {
+            const status = String((payload && payload.status) || "").toLowerCase();
+            return payload && (payload.paid === true || PIX_PAID_STATUSES.has(status));
+        }
+
+        async function checkPixPaymentStatus(transactionId) {
+            if (!transactionId) return;
+
+            try {
+                const response = await fetch(
+                    PIX_CHECK_ENDPOINT + "?id=" + encodeURIComponent(transactionId),
+                    { method: "GET", cache: "no-store" }
+                );
+                const payload = await response.json();
+                if (!payload) return;
+
+                if (isPaidPixStatus(payload)) {
+                    stopPixPolling();
+                    setPixStatusMessage("Pagamento confirmado com sucesso!", "success");
+                    const copyBtnText = document.getElementById("copyBtnText");
+                    if (copyBtnText) copyBtnText.textContent = "Pagamento confirmado";
+
+                    syncOrderWithUtmify("paid", transactionId).catch((error) => {
+                        console.warn("Utmify paid sync failed", error);
+                    });
+
+                    try {
+                        localStorage.removeItem(PIX_TRANSACTION_KEY);
+                    } catch (error) {}
+                }
+            } catch (error) {
+                // Mantem polling ativo em falhas temporarias de rede/API.
+            }
+        }
+
+        function startPixPolling(transactionId) {
+            stopPixPolling();
+            if (!transactionId) return;
+            checkPixPaymentStatus(transactionId);
+            pixPollTimer = setInterval(() => {
+                checkPixPaymentStatus(transactionId);
+            }, PIX_POLL_INTERVAL_MS);
+        }
+
+        function readCheckoutSnapshot() {
+            const raw = localStorage.getItem(CHECKOUT_SNAPSHOT_KEY);
+            const snapshot = safeParse(raw || "null", null);
+            if (snapshot && snapshot.product) return snapshot;
+
+            const cart = safeParse(localStorage.getItem(CART_KEY) || "[]", []);
+            const first = Array.isArray(cart) && cart.length ? cart[0] : null;
+            if (!first) return null;
+
+            const quantity = Number(first.quantity) || 1;
+            const currentPriceValue = toCurrencyNumber(first.price);
+            const total = currentPriceValue * quantity;
+
+            return {
+                product: {
+                    title: String(first.title || "Produto"),
+                    image: String(first.image || ""),
+                    currentPrice: String(first.price || ""),
+                    oldPrice: "",
+                    discount: "",
+                    quantity: quantity,
+                    shopName: ""
+                },
+                totals: {
+                    items: quantity,
+                    total: total,
+                    savings: 0
+                }
+            };
+        }
+
+        function readCustomerData() {
+            return safeParse(localStorage.getItem(CHECKOUT_CUSTOMER_KEY) || "{}", {});
+        }
+
+        function fillAddressInputs(customer) {
+            document.getElementById("inputCustomerName").value = customer.name || "";
+            document.getElementById("inputCustomerPhone").value = customer.phone || "";
+            document.getElementById("inputCustomerCpf").value = customer.cpf || "";
+            document.getElementById("inputCep").value = customer.cep || "";
+            document.getElementById("inputEndereco").value = customer.address || "";
+            document.getElementById("inputNumero").value = customer.number || "";
+            document.getElementById("inputComplemento").value = customer.complement || "";
+            document.getElementById("inputBairro").value = customer.neighborhood || "";
+            document.getElementById("inputCidade").value = customer.city || "";
+            document.getElementById("inputUf").value = customer.uf || "";
+        }
+
+        function renderCustomerCard(customer) {
+            document.getElementById("checkoutCustomerName").textContent = customer.name || "";
+            document.getElementById("checkoutCustomerPhone").textContent = customer.phone || "";
+            document.getElementById("checkoutCustomerCpf").textContent = customer.cpf || "";
+            document.getElementById("checkoutCustomerAddressLine1").textContent = customer.line1 || "";
+            document.getElementById("checkoutCustomerAddressLine2").textContent = customer.line2 || "";
+        }
+
+        function renderCheckoutData(snapshot) {
+            const product = (snapshot && snapshot.product) || {};
+            const totals = (snapshot && snapshot.totals) || {};
+            const quantity = Number(product.quantity) || 1;
+            const shippingOption = readShippingOption();
+            const shippingAmount = getShippingAmount(shippingOption);
+            const selectedUpsells = getSelectedUpsells();
+            const upsellAmount = getUpsellTotal();
+
+            const currentPriceNumber = toCurrencyNumber(product.currentPrice);
+            const oldPriceNumber = toCurrencyNumber(product.oldPrice);
+            const subtotalNumber = Number(totals.total) || (currentPriceNumber * quantity);
+            const totalNumber = subtotalNumber + shippingAmount + upsellAmount;
+            const savingsNumber = Number(totals.savings) || (
+                oldPriceNumber > currentPriceNumber ? (oldPriceNumber - currentPriceNumber) * quantity : 0
+            );
+            const items = (Number(totals.items) || quantity) + selectedUpsells.length;
+
+            document.getElementById("checkoutShopName").textContent = product.shopName || "";
+            document.getElementById("checkoutProductTitle").textContent = product.title || "Produto";
+            document.getElementById("checkoutProductVariant").textContent = product.discount ? ("Desconto " + product.discount) : "";
+            document.getElementById("checkoutProductQty").textContent = "x" + String(quantity);
+
+            const imgEl = document.getElementById("checkoutProductImage");
+            imgEl.src = product.image || "https://placehold.co/144x144/e2e8f0/8c8c8c?text=Produto";
+
+            const currentPriceText = formatBRL(currentPriceNumber);
+            document.getElementById("checkoutProductCurrentPrice").textContent = currentPriceText;
+
+            const oldPriceEl = document.getElementById("checkoutProductOldPrice");
+            if (oldPriceNumber > currentPriceNumber && oldPriceNumber > 0) {
+                oldPriceEl.textContent = formatBRL(oldPriceNumber);
+                oldPriceEl.style.display = "";
+            } else {
+                oldPriceEl.textContent = "";
+                oldPriceEl.style.display = "none";
+            }
+
+            document.getElementById("checkoutItemsLabel").textContent = "Total de " + String(items) + " itens";
+            document.getElementById("checkoutItemsTotal").textContent = formatBRL(totalNumber);
+            document.getElementById("checkoutFooterTotal").textContent = formatBRL(totalNumber);
+            document.getElementById("checkoutSavings").textContent = savingsNumber > 0
+                ? ("Economizou " + formatBRL(savingsNumber))
+                : "";
+            renderShippingSelection(shippingOption);
+            renderUpsellCards();
+        }
+
+        function saveCustomerData() {
+            const name = document.getElementById("inputCustomerName").value.trim();
+            const phone = document.getElementById("inputCustomerPhone").value.trim();
+            const cpf = document.getElementById("inputCustomerCpf").value.trim();
+            const cep = document.getElementById("inputCep").value.trim();
+            const address = document.getElementById("inputEndereco").value.trim();
+            const number = document.getElementById("inputNumero").value.trim();
+            const complement = document.getElementById("inputComplemento").value.trim();
+            const neighborhood = document.getElementById("inputBairro").value.trim();
+            const city = document.getElementById("inputCidade").value.trim();
+            const uf = document.getElementById("inputUf").value.trim();
+
+            const line1Parts = [address, number, complement].filter(Boolean);
+            const line2Parts = [neighborhood, city, uf, cep].filter(Boolean);
+            const customer = {
+                name: name,
+                phone: phone,
+                cpf: cpf,
+                cep: cep,
+                address: address,
+                number: number,
+                complement: complement,
+                neighborhood: neighborhood,
+                city: city,
+                uf: uf,
+                line1: line1Parts.join(", "),
+                line2: line2Parts.join(", ")
+            };
+
+            localStorage.setItem(CHECKOUT_CUSTOMER_KEY, JSON.stringify(customer));
+            renderCustomerCard(customer);
+            closeModal("addressModal");
+        }
+
+        function openModal(id) {
+            const overlay = document.getElementById(id);
+            const content = overlay.querySelector(".modal-content");
+            overlay.classList.remove("hidden");
+
+            void overlay.offsetWidth;
+
+            overlay.classList.remove("opacity-0");
+            if (content.classList.contains("translate-y-full")) {
+                content.classList.remove("translate-y-full");
+            }
+            if (content.classList.contains("scale-95")) {
+                content.classList.remove("scale-95");
+            }
+
+            if (id === "addressModal") {
+                fillAddressInputs(readCustomerData());
+            }
+            if (id === "pixModal" && currentPixTransactionId) {
+                startPixPolling(currentPixTransactionId);
+            }
+        }
+
+        function closeModal(id) {
+            const overlay = document.getElementById(id);
+            const content = overlay.querySelector(".modal-content");
+
+            if (id === "pixModal") {
+                stopPixPolling();
+            }
+
+            overlay.classList.add("opacity-0");
+            if (content.classList.contains("translate-y-full")) {
+                content.classList.add("translate-y-full");
+            }
+            if (content.classList.contains("scale-95")) {
+                content.classList.add("scale-95");
+            }
+
+            setTimeout(() => {
+                overlay.classList.add("hidden");
+            }, 300);
+        }
+
+        async function fazerPedido() {
+            if (isCreatingPix) return;
+
+            const snapshot = readCheckoutSnapshot();
+            if (!snapshot) {
+                alert("Nao foi possivel carregar os dados do pedido.");
+                return;
+            }
+
+            const customer = readCustomerData();
+            const documentNumber = onlyDigits(customer.cpf);
+            if (documentNumber.length !== 11 && documentNumber.length !== 14) {
+                alert("Preencha um CPF/CNPJ valido antes de finalizar o pedido.");
+                openModal("addressModal");
+                return;
+            }
+
+            const amount = getCheckoutTotalCents(snapshot);
+            if (amount < 100) {
+                alert("Valor minimo para gerar Pix: R$ 1,00.");
+                return;
+            }
+
+            const product = snapshot.product || {};
+            const selectedUpsells = getSelectedUpsells();
+            const customerAddress = {
+                street: String(customer.address || ""),
+                streetNumber: String(customer.number || ""),
+                complement: String(customer.complement || ""),
+                zipCode: onlyDigits(customer.cep || ""),
+                neighborhood: String(customer.neighborhood || ""),
+                city: String(customer.city || ""),
+                state: String(customer.uf || ""),
+                country: "br"
+            };
+            const payload = {
+                amount: amount,
+                cnpj: documentNumber,
+                nome: (customer.name || "Cliente").trim() || "Cliente",
+                periodos: [String(product.title || "Produto")].concat(selectedUpsells.map((item) => item.title)),
+                metadata: {
+                    product_title: String(product.title || "Produto"),
+                    quantity: Number(product.quantity) || 1,
+                    amount_brl: (amount / 100).toFixed(2),
+                    upsells: selectedUpsells.map((item) => item.title),
+                    upsell_total_brl: getUpsellTotal().toFixed(2)
+                },
+                trackingParameters: readTrackingParameters(),
+                customerPhone: String(customer.phone || ""),
+                customerEmail: String(customer.email || ""),
+                customerAddress: customerAddress,
+                productId: String(product.itemId || ""),
+                createdAt: snapshot.createdAt || Date.now()
+            };
+
+            isCreatingPix = true;
+            openModal("loadingModal");
+
+            try {
+                const response = await fetch(PIX_CREATE_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const rawText = await response.text();
+                const parsed = parseJsonLoosely(rawText);
+                const result = normalizePixCreateResult(parsed);
+
+                const successFlag = result && String(result.success).toLowerCase();
+                const hasPixCode = Boolean(
+                    result && (
+                        (typeof result.pixCopiaECola === "string" && result.pixCopiaECola.trim()) ||
+                        (typeof result.brcode === "string" && result.brcode.trim()) ||
+                        (typeof result.qr_code === "string" && result.qr_code.trim()) ||
+                        (typeof result.qrcode === "string" && result.qrcode.trim())
+                    )
+                );
+
+                if (!response.ok) {
+                    throw new Error((result && (result.error || result.message)) || "Falha ao gerar Pix.");
+                }
+                if (!result) {
+                    throw new Error("Resposta invalida da API Pix.");
+                }
+                if (successFlag === "false") {
+                    throw new Error((result && (result.error || result.message)) || "Falha ao gerar Pix.");
+                }
+                if (!hasPixCode) {
+                    const statusInfo = (result && result.status) ? ("status: " + result.status) : "";
+                    throw new Error((result && (result.error || result.message)) || ("Resposta sem codigo Pix. " + statusInfo).trim());
+                }
+
+                renderPixData(result);
+                try {
+                    localStorage.setItem(PIX_TRANSACTION_KEY, JSON.stringify({
+                        id: currentPixTransactionId,
+                        createdAt: Date.now()
+                    }));
+                } catch (error) {}
+
+                if (result.utmifyPendingSynced === true) {
+                    markUtmifySync("pending", currentPixTransactionId);
+                } else {
+                    syncOrderWithUtmify("pending", currentPixTransactionId).catch((error) => {
+                        console.warn("Utmify pending sync failed", error, result.utmifyPendingError || "");
+                    });
+                }
+
+                closeModal("loadingModal");
+                setTimeout(() => {
+                    openModal("pixModal");
+                }, 180);
+            } catch (error) {
+                closeModal("loadingModal");
+                alert("Erro ao gerar Pix: " + (error && error.message ? error.message : "tente novamente."));
+            } finally {
+                isCreatingPix = false;
+            }
+        }
+        function copyPix() {
+            if (!currentPixCode) {
+                alert("Gere o Pix antes de copiar o codigo.");
+                return;
+            }
+
+            const copyCallback = () => {
+                const btnText = document.getElementById("copyBtnText");
+                const originalText = btnText.innerText;
+                btnText.innerText = "Codigo copiado!";
+                setTimeout(() => {
+                    btnText.innerText = originalText;
+                }, 3000);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(currentPixCode).then(copyCallback).catch(fallbackCopyTextToClipboard);
+            } else {
+                fallbackCopyTextToClipboard();
+            }
+
+            function fallbackCopyTextToClipboard() {
+                const textArea = document.createElement("textarea");
+                textArea.value = currentPixCode;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand("copy");
+                    copyCallback();
+                } catch (err) {}
+                document.body.removeChild(textArea);
+            }
+        }
+        function selectShipping(name, date, price, isStandard) {
+            const option = writeShippingOption({
+                name: name,
+                date: date,
+                price: price,
+                isStandard: isStandard
+            });
+            const snapshot = readCheckoutSnapshot();
+            renderShippingSelection(option);
+            if (snapshot) {
+                renderCheckoutData(snapshot);
+            }
+            closeModal("shippingModal");
+        }
+
+        function maskCep(input) {
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 5) {
+                value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+            }
+            input.value = value;
+        }
+
+        async function buscarCep(cep) {
+            const cleanCep = cep.replace(/\D/g, "");
+
+            if (cleanCep.length === 8) {
+                try {
+                    const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+                    const data = await response.json();
+
+                    if (!data.erro) {
+                        document.getElementById("inputEndereco").value = data.logradouro || "";
+                        document.getElementById("inputBairro").value = data.bairro || "";
+                        document.getElementById("inputCidade").value = data.localidade || "";
+                        document.getElementById("inputUf").value = data.uf || "";
+                        document.getElementById("inputNumero").focus();
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar CEP:", error);
+                }
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderUpsellCards();
+            renderShippingSelection(readShippingOption());
+            const snapshot = readCheckoutSnapshot();
+            if (snapshot) {
+                renderCheckoutData(snapshot);
+                fireInitiateCheckoutEvent(snapshot);
+            }
+            const customer = readCustomerData();
+            renderCustomerCard(customer);
+            fillAddressInputs(customer);
+        });
+    </script>
+</body>
+</html>
+
