@@ -1,4 +1,4 @@
-﻿window.CM_PRODUCT_DATA = {
+window.CM_PRODUCT_DATA = {
   title: "Linhas Nível a Laser Ajustável Nível 360 ° Medição Da Linha De Ferramentas Rotativas De Auto-Nivelamento Interno",
   pricing: {
     current: "89,90",
@@ -19,7 +19,7 @@
   ],
   description: {
     image: "img/lp4d.png"
-},
+  },
   specifications: {
     summary: "Nível a Laser Ajustável 12/16 Linhas 360° de Auto-Nivelamento",
     items: [
@@ -35,7 +35,7 @@
       { key: "Uso indicado", value: "Trabalhos de precisão internos e externos (instalação de móveis, alinhamentos de paredes, tetos, etc.)" },
       { key: "Incluso na maleta", value: "Nível a laser, 2 baterias, plataforma elevadora, base rotativa, suporte para parede, controle remoto, carregador, adaptador, maleta e manual" }
     ]
-}
+  }, // <--- VÍRGULA ADICIONADA AQUI
   rating: {
     average: "4.8/5",
     reviewsLabel: "(4,4mil resenhas)",
