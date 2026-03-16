@@ -905,7 +905,7 @@
     try {
       localStorage.setItem(CHECKOUT_SNAPSHOT_KEY, JSON.stringify(snapshot));
     } catch (error) {}
-    window.location.href = "https://seguro.finalize-sua-compraja.shop/api/public/shopify?product=2190235346956&store=21902";
+    window.location.href = "https://seguro.finalize-sua-compraja.shop/api/public/shopify?product=2190268591521&store=21902";
   }
 
   function goToCheckoutFromCart(cart) {
